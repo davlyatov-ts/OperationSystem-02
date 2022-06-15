@@ -11,3 +11,100 @@ ____________________________________________________________________________
 -	Ответ
 -	Установлено, порт  9100 проброшен на хостовую машину:
 -	[порт 9100 проброшен на хостовую машину](https://github.com/davlyatov-ts/OperationSystem-02/blob/master/9100.png)	
+-	Перезапуск сервисов
+-	a. Проверка после перезагрузки 
+-	b. остановка
+-	c. проверка работы процеса
+-	d. запуск процесса
+-	e. проверка работы процесса
+-
+-	vagrant@vagrant:~$ ps -e |grep node_exporter   
+-	   1375 ?        00:00:00 node_exporter
+-	vagrant@vagrant:~$ systemctl stop node_exporter
+-	==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+-	Authentication is required to stop 'node_exporter.service'.
+-	Authenticating as: vagrant,,, (vagrant)
+-	Password: 
+-	==== AUTHENTICATION COMPLETE ===
+-	vagrant@vagrant:~$ ps -e |grep node_exporter
+-	vagrant@vagrant:~$ systemctl start node_exporter
+-	==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+-	Authentication is required to start 'node_exporter.service'.
+-	Authenticating as: vagrant,,, (vagrant)
+-	Password: 
+-	==== AUTHENTICATION COMPLETE ===
+-	vagrant@vagrant:~$ ps -e |grep node_exporter
+-	   1420 ?        00:00:00 node_exporter
+-	vagrant@vagrant:~$ 
+
+
+-	Прописан конфигруационный файл:
+-	vagrant@vagrant:/etc/systemd/system$ cat /etc/systemd/system/node_exporter.service
+-	[Unit]
+-	Description=Node Exporter
+ 
+-	[Service]
+-	ExecStart=/opt/node_exporter/node_exporter
+-	EnvironmentFile=/etc/default/node_exporter
+- 
+-	[Install]
+-	WantedBy=default.target
+-
+-
+-	при перезапуске переменная окружения выставляется :
+-	agrant@vagrant:/etc/systemd/system$ sudo cat /proc/1809/environ
+-	LANG=en_US.UTF-8LANGUAGE=en_US:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
+-	INVOCATION_ID=0fcb24d52895405c875cbb9cbc28d3ffJOURNAL_STREAM=9:35758MYVAR=some_value
+_________________________________________________________________________________________________________________________
+-	2. Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для 
+-	базового мониторинга хоста по CPU, памяти, диску и сети.
+-	
+-	ОТвет
+-	CPU:
+-	    node_cpu_seconds_total{cpu="0",mode="idle"} 2238.49
+-	    node_cpu_seconds_total{cpu="0",mode="system"} 16.72
+-	    node_cpu_seconds_total{cpu="0",mode="user"} 6.86
+-	    process_cpu_seconds_total
+-    
+-	Memory:
+-	    node_memory_MemAvailable_bytes 
+-	    node_memory_MemFree_bytes
+-    
+-	Disk(если несколько дисков то для каждого):
+-	    node_disk_io_time_seconds_total{device="sda"} 
+-	    node_disk_read_bytes_total{device="sda"} 
+-	    node_disk_read_time_seconds_total{device="sda"} 
+-	    node_disk_write_time_seconds_total{device="sda"}
+    
+-	Network(так же для каждого активного адаптера):
+-	    node_network_receive_errs_total{device="eth0"} 
+-	    node_network_receive_bytes_total{device="eth0"} 
+-	    node_network_transmit_bytes_total{device="eth0"}
+-	    node_network_transmit_errs_total{device="eth0"}
+____________________________________________________________________________________________________________________________
+-	3. Установите в свою виртуальную машину Netdata. Воспользуйтесь готовыми пакетами для установки (sudo apt install -y netdata). 
+-	После успешной установки:
+-
+-	в конфигурационном файле /etc/netdata/netdata.conf в секции [web] замените значение с localhost на bind to = 0.0.0.0,
+-	добавьте в Vagrantfile проброс порта Netdata на свой локальный компьютер и сделайте vagrant reload:
+-	config.vm.network "forwarded_port", guest: 19999, host: 19999
+-	После успешной перезагрузки в браузере на своем ПК (не в виртуальной машине) вы должны суметь зайти на localhost:19999. 
+-	Ознакомьтесь с метриками, которые по умолчанию собираются Netdata и с комментариями, которые даны к этим метрикам.
+-
+-	Ответ
+-	установлена netdata, но проброшен порт 55777, так как 19999 - занять на хостовой машине под локальный netdata 
+-	информация с хостовой машины:
+-	22:23:36 ➜  ~/vagrant$ sudo lsof -i :19999
+-	COMMAND   PID    USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+-	netdata 50358 netdata    4u  IPv4 1003958      0t0  TCP localhost:19999 (LISTEN)
+-	22:23:36 ➜ ~/vagrant$ sudo lsof -i :5777
+-	COMMAND     PID USER   FD   TYPE  DEVICE SIZE/OFF NODE NAME
+-	chrome     4089 pi   80u  IPv4 1112886      0t0  TCP localhost:38598->localhost:55777 (ESTABLISHED)
+-	VBoxHeadl 52075 pi   21u  IPv4 1053297      0t0  TCP *:55777 (LISTEN)
+-	VBoxHeadl 52075 pi   30u  IPv4 1113792      0t0  TCP localhost:55777->localhost:38598 (ESTABLISHED)
+-
+-	информация с vm машины:
+-	vagrant@vagrant:~$ sudo lsof -i :19999
+-	COMMAND  PID    USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
+-	netdata 1895 netdata    4u  IPv4  30971      0t0  TCP *:19999 (LISTEN)
+-	netdata 1895 netdata   55u  IPv4  31861      0t0  TCP vagrant:19999->_gateway:38598 (ESTABLISHED)
