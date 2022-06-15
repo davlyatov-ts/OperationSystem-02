@@ -108,3 +108,4 @@ ________________________________________________________________________________
 -	COMMAND  PID    USER   FD   TYPE DEVICE SIZE/OFF NODE NAME
 -	netdata 1895 netdata    4u  IPv4  30971      0t0  TCP *:19999 (LISTEN)
 -	netdata 1895 netdata   55u  IPv4  31861      0t0  TCP vagrant:19999->_gateway:38598 (ESTABLISHED)
+-	[netdata]()
