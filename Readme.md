@@ -5,56 +5,50 @@ ____________________________________________________________________________
 -	Используя знания из лекции по systemd, создайте самостоятельно простой unit-файл для node_exporter:
 -
 -	поместите его в автозагрузку,
--	предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на systemctl cat cron),
+-	предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на 
+-	systemctl cat cron),
 -	удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
 -	
 -	Ответ
--	Установлено, порт  9100 проброшен на хостовую машину:
--	[порт 9100 проброшен на хостовую машину](https://github.com/davlyatov-ts/OperationSystem-02/blob/master/9100.png)	
--	Перезапуск сервисов
--	a. Проверка после перезагрузки 
--	b. остановка
--	c. проверка работы процеса
--	d. запуск процесса
--	e. проверка работы процесса
--
--	vagrant@vagrant:~$ ps -e |grep node_exporter   
--	   1375 ?        00:00:00 node_exporter
--	vagrant@vagrant:~$ systemctl stop node_exporter
--	==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
--	Authentication is required to stop 'node_exporter.service'.
--	Authenticating as: vagrant,,, (vagrant)
--	Password: 
--	==== AUTHENTICATION COMPLETE ===
--	vagrant@vagrant:~$ ps -e |grep node_exporter
--	vagrant@vagrant:~$ systemctl start node_exporter
--	==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
--	Authentication is required to start 'node_exporter.service'.
--	Authenticating as: vagrant,,, (vagrant)
--	Password: 
--	==== AUTHENTICATION COMPLETE ===
--	vagrant@vagrant:~$ ps -e |grep node_exporter
--	   1420 ?        00:00:00 node_exporter
--	vagrant@vagrant:~$ 
-
-
--	Прописан конфигруационный файл:
--	vagrant@vagrant:/etc/systemd/system$ cat /etc/systemd/system/node_exporter.service
+-	sudo systemctl enable --now node_exporter.service;
+-	sudo nano /etc/systemd/system/node_exporter.service
+-	  GNU nano 6.2    /etc/systemd/system/node_exporter.service                                                       
 -	[Unit]
 -	Description=Node Exporter
- 
+-	Wants=network-online.target
+-	After=network-online.target
+-
 -	[Service]
--	ExecStart=/opt/node_exporter/node_exporter
--	EnvironmentFile=/etc/default/node_exporter
-- 
+-	User=node_exporter
+-	Group=node_exporter
+-	Type=simple
+-	ExecStart=/usr/local/bin/node_exporter
+-
 -	[Install]
--	WantedBy=default.target
+-	WantedBy=multi-user.target
 -
+-	systemctl status node_exporter
 -
--	при перезапуске переменная окружения выставляется :
--	agrant@vagrant:/etc/systemd/system$ sudo cat /proc/1809/environ
--	LANG=en_US.UTF-8LANGUAGE=en_US:PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/snap/bin
--	INVOCATION_ID=0fcb24d52895405c875cbb9cbc28d3ffJOURNAL_STREAM=9:35758MYVAR=some_value
+-	● node_exporter.service - Node Exporter
+-	Loaded: loaded (/etc/systemd/system/node_exporter.service; enabled; vendor preset: enabled)
+-	Active: active (running) since Tue 2022-06-21 20:29:08 MSK; 20min ago
+-	Main PID: 17503 (node_exporter)
+-	Tasks: 7 (limit: 4583)
+-	Memory: 4.8M
+-       CPU: 230ms
+-       CGroup: /system.slice/node_exporter.service
+-	        └─17503 /usr/local/bin/node_exporter
+-
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=thermal_zone
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=time
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=timex
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=udp_queues
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=uname
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=vmstat
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=xfs
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=zfs
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100
+-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false
 _________________________________________________________________________________________________________________________
 -	2. Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для 
 -	базового мониторинга хоста по CPU, памяти, диску и сети.
