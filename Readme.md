@@ -50,7 +50,7 @@ ____________________________________________________________________________
 -	июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100
 -	июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false
 -	
--	[http://localhost:9100/metrics](https://github.com/davlyatov-ts/OperationSystem-02/blob/master/9100.png)
+-![http://localhost:9100/metrics](https://github.com/davlyatov-ts/OperationSystem-02/blob/master/9100.png)
 _________________________________________________________________________________________________________________________
 -	2. Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для 
 -	базового мониторинга хоста по CPU, памяти, диску и сети.
