@@ -39,7 +39,7 @@ ____________________________________________________________________________
 -       CGroup: /system.slice/node_exporter.service
 -	        └─17503 /usr/local/bin/node_exporter
 -
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=thermal_zone<br>
+июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z<br> caller=node_exporter.go:115 level=info collector=thermal_zone<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=time<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=timex<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=udp_queues<br>
