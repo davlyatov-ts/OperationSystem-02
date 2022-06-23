@@ -1,6 +1,6 @@
 -	Домашнее задание к занятию "3.4. Операционные системы, лекция 2"
 ____________________________________________________________________________
--	1. На лекции мы познакомились с node_exporter. В демонстрации его исполняемый файл запускался в background. 
+-	1. На лекции мы познакомились с **node_exporter**. В демонстрации его исполняемый файл запускался в background. 
 -	Этого достаточно для демо, но не для настоящей production-системы, где процессы должны находиться под внешним управлением. 
 -	Используя знания из лекции по systemd, создайте самостоятельно простой unit-файл для node_exporter:
 -
@@ -39,7 +39,7 @@ ____________________________________________________________________________
 -       CGroup: /system.slice/node_exporter.service
 -	        └─17503 /usr/local/bin/node_exporter
 -
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z<br> caller=node_exporter.go:115 level=info collector=thermal_zone<br>
+июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=thermal_zone<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=time<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=timex<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=udp_queues<br>
@@ -47,8 +47,8 @@ ____________________________________________________________________________
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=vmstat<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=xfs<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=zfs.
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100.
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false.
+июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100<br>
+июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false<br>
 -	
 -![http://localhost:9100/metrics](https://github.com/davlyatov-ts/OperationSystem-02/blob/master/9100.png)
 _________________________________________________________________________________________________________________________
