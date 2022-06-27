@@ -8,7 +8,7 @@ ____________________________________________________________________________
 внешний файл (посмотрите, например, на systemctl cat cron),удостоверьтесь, что с помощью systemctl процесс <br>
 корректно стартует, завершается, а после перезагрузки автоматически поднимается.<br>
 	
--	Ответ
+-	Ответ<br>
 	sudo systemctl enable --now node_exporter.service;<br>
 	sudo nano /etc/systemd/system/node_exporter.service<br>
 	/etc/systemd/system/node_exporter.service<br>                                                       
