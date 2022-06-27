@@ -4,41 +4,40 @@ ____________________________________________________________________________
 Этого достаточно для демо, но не для настоящей production-системы, где процессы должны находиться под внешним управлением.<br> 
 Используя знания из лекции по systemd, создайте самостоятельно простой unit-файл для node_exporter:<br>
 
--	поместите его в автозагрузку,
--	предусмотрите возможность добавления опций к запускаемому процессу через внешний файл (посмотрите, например, на 
--	systemctl cat cron),
--	удостоверьтесь, что с помощью systemctl процесс корректно стартует, завершается, а после перезагрузки автоматически поднимается.
--	
+поместите его в автозагрузку,предусмотрите возможность добавления опций к запускаемому процессу через <br>
+внешний файл (посмотрите, например, на systemctl cat cron),удостоверьтесь, что с помощью systemctl процесс <br>
+корректно стартует, завершается, а после перезагрузки автоматически поднимается.<br>
+	
 -	Ответ
--	sudo systemctl enable --now node_exporter.service;
--	sudo nano /etc/systemd/system/node_exporter.service
--	  GNU nano 6.2    /etc/systemd/system/node_exporter.service                                                       
--	[Unit]
--	Description=Node Exporter
--	Wants=network-online.target
--	After=network-online.target
--
--	[Service]
--	User=node_exporter
--	Group=node_exporter
--	Type=simple
--	ExecStart=/usr/local/bin/node_exporter
--
--	[Install]
--	WantedBy=multi-user.target
--
--	systemctl status node_exporter
--
--	● node_exporter.service - Node Exporter
--	Loaded: loaded (/etc/systemd/system/node_exporter.service; enabled; vendor preset: enabled)
--	Active: active (running) since Tue 2022-06-21 20:29:08 MSK; 20min ago
--	Main PID: 17503 (node_exporter)
--	Tasks: 7 (limit: 4583)
--	Memory: 4.8M
--       CPU: 230ms
--       CGroup: /system.slice/node_exporter.service
--	        └─17503 /usr/local/bin/node_exporter
--
+	sudo systemctl enable --now node_exporter.service;<br>
+	sudo nano /etc/systemd/system/node_exporter.service<br>
+	/etc/systemd/system/node_exporter.service<br>                                                       
+	[Unit]<bf>
+	Description=Node Exporter<br>
+	Wants=network-online.target<br>
+	After=network-online.target<br>
+
+	[Service]<br>
+	User=node_exporter<br>
+	Group=node_exporter<br>
+	Type=simple<br>
+	ExecStart=/usr/local/bin/node_exporter<br>
+
+	[Install]<br>
+	WantedBy=multi-user.target<br>
+
+	systemctl status node_exporter<br>
+
+	node_exporter.service - Node Exporter<br>
+	Loaded: loaded (/etc/systemd/system/node_exporter.service; enabled; vendor preset: enabled)<br>
+	Active: active (running) since Tue 2022-06-21 20:29:08 MSK; 20min ago<br>
+	Main PID: 17503 (node_exporter)<br>
+	Tasks: 7 (limit: 4583)<br>
+	Memory: 4.8M<br>
+       CPU: 230ms<br>
+       CGroup: /system.slice/node_exporter.service<br>
+	        └─17503 /usr/local/bin/node_exporter<br>
+
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=thermal_zone<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=time<br>
 июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=timex<br>
