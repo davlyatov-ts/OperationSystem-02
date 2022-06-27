@@ -38,17 +38,17 @@ ____________________________________________________________________________
        CGroup: /system.slice/node_exporter.service<br>
 	        └─17503 /usr/local/bin/node_exporter<br>
 
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=thermal_zone<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=time<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=timex<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=udp_queues<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=uname<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=vmstat<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=xfs<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=zfs.
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100<br>
-июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false<br>
--	
+1.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=thermal_zone<br>
+2.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=time<br>
+3.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=timex<br>
+4.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=udp_queues<br>
+5.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=uname<br>
+6.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=vmstat<br>
+7.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=xfs<br>
+8.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=zfs.
+9.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100<br>
+10.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false<br>
+	
 -![http://localhost:9100/metrics](https://github.com/davlyatov-ts/OperationSystem-02/blob/master/9100.png)
 _________________________________________________________________________________________________________________________
 -	2. Ознакомьтесь с опциями node_exporter и выводом /metrics по-умолчанию. Приведите несколько опций, которые вы бы выбрали для 
