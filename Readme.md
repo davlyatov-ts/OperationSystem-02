@@ -9,45 +9,42 @@ ____________________________________________________________________________
 корректно стартует, завершается, а после перезагрузки автоматически поднимается.<br>
 	
 -	Ответ<br>
-	sudo systemctl enable --now node_exporter.service;<br>
-	sudo nano /etc/systemd/system/node_exporter.service<br>
-	/etc/systemd/system/node_exporter.service<br>                                                       
-	[Unit]<bf>
-	Description=Node Exporter<br>
-	Wants=network-online.target<br>
-	After=network-online.target<br>
 
-	[Service]<br>
-	User=node_exporter<br>
-	Group=node_exporter<br>
-	Type=simple<br>
-	ExecStart=/usr/local/bin/node_exporter<br>
+[Unit]<br>
+Description=Node Exporter<br>
+Wants=network-online.target<br>
+After=network-online.target<br>
 
-	[Install]<br>
-	WantedBy=multi-user.target<br>
+[Service]<br>
+User=root<br>
+EnvironmentFile=/etc/default/node_exporter<br>
+ExecStart=/opt/node_exporter $OPTIONS<br> 
+Restart=on-failure<br>
+RestartSec=5<br>
 
-	systemctl status node_exporter<br>
+[Install]<br>
+WantedBy=multi-user.target<br>
 
-	node_exporter.service - Node Exporter<br>
-	Loaded: loaded (/etc/systemd/system/node_exporter.service; enabled; vendor preset: enabled)<br>
-	Active: active (running) since Tue 2022-06-21 20:29:08 MSK; 20min ago<br>
-	Main PID: 17503 (node_exporter)<br>
-	Tasks: 7 (limit: 4583)<br>
-	Memory: 4.8M<br>
-       CPU: 230ms<br>
-       CGroup: /system.slice/node_exporter.service<br>
-	        └─17503 /usr/local/bin/node_exporter<br>
+node_exporter.service - Node Exporter<br>
+     Loaded: loaded (/etc/systemd/system/node_exporter.service; disabled; vendor preset: enabled)<br>
+     Active: active (running) since Mon 2022-06-27 16:46:49 MSK; 14s ago<br>
+   Main PID: 19183 (node_exporter)<br>
+      Tasks: 5 (limit: 4583)<br>
+     Memory: 2.6M<br>
+        CPU: 7ms<br>
+     CGroup: /system.slice/node_exporter.service<br>
+             └─19183 /opt/node_exporter<br>
 
-1.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=thermal_zone<br>
-2.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=time<br>
-3.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=timex<br>
-4.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=udp_queues<br>
-5.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=uname<br>
-6.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=vmstat<br>
-7.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=xfs<br>
-8.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.628Z caller=node_exporter.go:115 level=info collector=zfs.
-9.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100<br>
-10.июн 21 20:29:08 pi node_exporter[17503]: ts=2022-06-21T17:29:08.629Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=thermal_zone<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=time<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=timex<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=udp_queues<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=uname<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=vmstat<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=xfs<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:115 level=info collector=zfs<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=node_exporter.go:199 level=info msg="Listening on" address=:9100<br>
+июн 27 16:46:49 pi node_exporter[19183]: ts=2022-06-27T13:46:49.942Z caller=tls_config.go:195 level=info msg="TLS is disabled." http2=false<br>
 	
 -![http://localhost:9100/metrics](https://github.com/davlyatov-ts/OperationSystem-02/blob/master/9100.png)
 _________________________________________________________________________________________________________________________
